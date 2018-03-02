@@ -1,0 +1,62 @@
+﻿@model PLNFramework.Security.ViewModels.NewAppUserPermissionViewModel
+
+@{
+    ViewBag.Title = "New User Permission";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>
+    <a href="@Url.Content("~/SecuritySettings/")">Admin</a>/<a href="@Url.Content("~/SecuritySettings/Users")">Users</a>/<a href="@Url.Content("~/SecuritySettings/UserPermission/")@Model.User.Id">User permission</a>/@ViewBag.Title
+</h3>
+<hr />
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @Html.HiddenFor(model => model.User.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(x => x.User.Email)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedResource, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.SelectedResource, Model.ResourcesList, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SelectedResource, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedActions, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (var action in Model.AvailableActions)
+                {
+                    <input type="checkbox" name="SelectedActions" value="@action.Key" /> @action.Name <br />
+                }
+            </div>
+        </div>
+        <div class="alert-danger">
+            @if (ViewBag.Error != null)
+            {
+                @ViewBag.Error
+            }
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

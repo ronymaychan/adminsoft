@@ -1,0 +1,71 @@
+﻿Registrar un usuario:
+
+POST
+http://localhost:51367/api/account/register
+
+Headers:
+User-Agent: Fiddler
+Host: localhost:51367
+Content-Length: 114
+Content-Type: application/json
+
+Body:
+-----------------------------
+{
+"UserName":"majesova",
+"Password":"2Perros.",
+"ConfirmPassword": "2Perros.",
+"Email":"majesova@gmail.com"
+}
+-----------------------------
+Response:
+200 OK
+
+Solicitar un token:
+
+POST
+http://localhost:51367/token
+
+Headers:
+-------------------------------
+User-Agent: Fiddler
+Host: localhost:51367
+Content-Length: 65
+Content-Type: application/x-www-form-urlencoded
+
+Body:
+-----------------------------
+username=majesova@gmail.com&password=2Perros.&grant_type=password
+
+
+Response:
+{"access_token":"sG3dINFQwmxbqSoOC5mQNessARQZwaISyXZgyT65XJghwRYIKLFub1e69kZA8EVQerH3Je8FmVeNJRsZoaa6o8pXQP3a5-15FKvvZn0zmN0aD63haNogUtuwEww1MWSdvO-Bt5xWvW7zVIin2rqtfHXR7XJK9B0uP2JwzOPXGaB37E7lupU_SQ3k4IfLb4yGsWzy0uHzSCsjxHR7G1aY8JsqfN59lnyFRbXZ4dE-1L9oBtdi-dPafNUqkg7zKSBpG6HGpCXhUXNUphtdatQgo1TKFZejB_OrMFgVCi3X0-pOaDYVk4s9BghDgxD9E5NFsLbbMzpFGVds-Eyei8e91xdzzLUIULTPVBg1grkBG_OBY0JSWu4yPCRH7v0YGA1AW_EDHbqTUg0ZS9Ed90I7CroxaIRlDEVu9lxmg1rfFMzmno_SqlCyH6-RKP7q2-xKJGdDrwrGIdcKvZeXCzsjfmB2USCztndc79DSbew0_cBuVJslLbcuyZlKYEyj42wn","token_type":"bearer","expires_in":1209599,"userName":"majesova@gmail.com",".issued":"Thu, 12 Jan 2017 19:30:21 GMT",".expires":"Thu, 26 Jan 2017 19:30:21 GMT"}
+
+
+Petición:
+
+
+GET:
+http://localhost:51367/api/values
+
+Headers:
+
+User-Agent: Fiddler
+Host: localhost:51367
+Content-Length: 0
+Authorization: Bearer sG3dINFQwmxbqSoOC5mQNessARQZwaISyXZgyT65XJghwRYIKLFub1e69kZA8EVQerH3Je8FmVeNJRsZoaa6o8pXQP3a5-15FKvvZn0zmN0aD63haNogUtuwEww1MWSdvO-Bt5xWvW7zVIin2rqtfHXR7XJK9B0uP2JwzOPXGaB37E7lupU_SQ3k4IfLb4yGsWzy0uHzSCsjxHR7G1aY8JsqfN59lnyFRbXZ4dE-1L9oBtdi-dPafNUqkg7zKSBpG6HGpCXhUXNUphtdatQgo1TKFZejB_OrMFgVCi3X0-pOaDYVk4s9BghDgxD9E5NFsLbbMzpFGVds-Eyei8e91xdzzLUIULTPVBg1grkBG_OBY0JSWu4yPCRH7v0YGA1AW_EDHbqTUg0ZS9Ed90I7CroxaIRlDEVu9lxmg1rfFMzmno_SqlCyH6-RKP7q2-xKJGdDrwrGIdcKvZeXCzsjfmB2USCztndc79DSbew0_cBuVJslLbcuyZlKYEyj42wn
+
+Body:
+"Vacío"
+
+Response:
+
+["value1","value2"]
+
+
+-------------------------------------------------------------------------------------------------
+
+Refresh token:
+
+refresh_token=876136a7-aff7-4d16-9902-51fa090d0f14&grant_type=refresh_token&client_id=
+

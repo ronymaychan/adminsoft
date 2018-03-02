@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PLNFramework.Security.ViewModels.AppResourceViewModel>
+
+@{
+    ViewBag.Title = "Resources";
+}
+
+<h3><a href="@Url.Content("~/SecuritySettings/")">Admin</a>/Resources</h3>
+
+<a href="@Url.Action("CreateOrUpdateResource")" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New Resource
+</a>
+<p></p>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CreateOrUpdateResource", new {  id=item.Key })
+        </td>
+    </tr>
+}
+
+</table>

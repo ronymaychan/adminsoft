@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Lista de empleados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="page-header">@ViewBag.Title</h3>
+
+<div class="row">
+    <div class="col-md-2">
+        <div class="form-group">
+            <a href="@Url.Action("Create")" class="btn btn-primary">
+                <span class="glyphicon glyphicon-plus"></span> Nuevo empleado
+            </a>
+        </div>
+    </div>
+</div>
+
+@(Html.BootstrapTable<AdminSoft.WebSite.Models.EmployeeViewModels>(Url.Action("GetEmployees"), TablePaginationOption.server)
+        .Apply(TableOption.showRefresh, TableOption.search)
+        .Apply(TableOption.pageSize, 10)
+        .Apply(m => m.FirstName, ColumnOption.sortable)
+        .Apply(m => m.LastName,ColumnOption.sortable)
+        .Apply(m => m.Address)
+        .Apply(m => m.City)
+        .Apply(m => m.State)
+        .Column().Apply(ColumnOption.formatter, "actionMenu")
+) 
+
+
+@section Scripts{ 
+    <script type="text/javascript">
+        function actionMenu(value, row, index) {
+            return [
+                '<a href="@Url.Action("Details", "Employee")/' + row.EmployeeId + '" title="Detalle del empleado" class="btn btn-default btn-sm">' +
+                    '<span class="glyphicon glyphicon-list-alt"></span>' +
+                '</a>' +
+                '<a href="@Url.Action("Edit", "Employee")/' + row.EmployeeId + '" title="Editar empleado" class="btn btn-default btn-sm">' +
+                    '<span class="glyphicon glyphicon-edit"></span>' +
+                '</a>' +
+                '<a href="@Url.Action("Delete", "Employee")/' + row.EmployeeId + '" title="Eliminar empleado" class="btn btn-default btn-sm">' +
+                    '<span class="glyphicon glyphicon-trash"></span>' +
+                '</a>'
+            ];
+        }
+    </script>
+}

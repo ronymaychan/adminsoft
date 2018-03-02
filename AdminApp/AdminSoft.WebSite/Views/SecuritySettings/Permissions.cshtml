@@ -1,0 +1,61 @@
+﻿@model IEnumerable<PLNFramework.Security.ViewModels.AppPermissionViewModel>
+
+@{
+    ViewBag.Title = "Permissions";
+}
+
+<h3><a href="@Url.Content("~/SecuritySettings/")">Admin</a>/Permissions</h3>
+
+<a href="@Url.Action("CreatePermission")" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New Permission
+</a>
+<p></p>
+
+<div class="row">
+    @{
+        var divInicial = true;
+        int index = 1;
+        var resourceKeys = Model.Select(x => x.ResourceKey).Distinct();
+    }
+    @foreach (var key in resourceKeys)
+    {
+        if (divInicial)
+        {
+            @:<div class='row'>
+                divInicial = false;
+        }
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    @{
+                        var resourceName = Model.Where(x => x.ResourceKey == key).Select(x => x.ResourceName).FirstOrDefault();
+                    }
+                    <b> @resourceName </b>
+                </div>
+                <div class="panel-body">
+                    <div class="container">
+
+                        @{
+
+                            var actions = Model.Where(x => x.ResourceName == resourceName).Select(x => x.ActionName).Distinct(); }
+                        @foreach (var action in actions)
+                        {
+                            @action <br />
+                        }
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-primary" href="@Url.Content("/SecuritySettings/EditPermission/")@key">Edit</a>
+                </div>
+            </div>
+        </div>
+        if ((index % 6) == 0)
+        {
+            divInicial = true;
+            @: </div>
+        }
+    index++;
+    }
+
+</div>
+<br />

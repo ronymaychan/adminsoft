@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<div class="row text-center">
+    <h2>Administration</h2>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Users")"><span>Usuarios</span></a>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Roles")"><span>Roles</span></a>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Menus")"><span>Menús</span></a>
+    </div>
+    
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Permissions")"><span>Permisos</span></a>
+    </div>
+    <div class="col-md-4">
+        <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Resources")"><span>Recursos</span></a>
+        </div>
+    <div class="col-md-4">
+            <a class="btn btn-primary btn-lg btn-block" href="@Url.Content("~/SecuritySettings/Actions")"><span>Acciones</span></a>
+    </div>
+</div>

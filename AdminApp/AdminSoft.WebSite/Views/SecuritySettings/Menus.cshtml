@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PLNFramework.Security.ViewModels.MenuViewModel>
+
+@{
+    ViewBag.Title = "Menus";
+}
+
+<h3><a href="@Url.Content("~/SecuritySettings/")">Admin</a>/Menus</h3>
+
+<a href="@Url.Action("CreateMenu")" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New menu
+</a>
+<p></p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Key)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Key)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @if(item.IsActive.Value){
+                <span>Activo</span>
+            }
+            else
+            {
+                <span>Inaactivo</span>
+            }
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "EditMenu", new {  id=item.Key  }) |
+            @Html.ActionLink("View Items", "MenuItems", new { id = item.Key })
+        </td>
+    </tr>
+}
+
+</table>

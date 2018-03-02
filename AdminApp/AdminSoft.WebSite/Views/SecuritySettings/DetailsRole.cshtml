@@ -1,0 +1,49 @@
+﻿@model PLNFramework.Security.ViewModels.DetailsAppRoleViewModel
+
+@{
+    ViewBag.Title = "Details Role";
+}
+
+<h3>
+    <a href="@Url.Content("~/SecuritySettings/")">Admin</a>/<a href="@Url.Content("~/SecuritySettings/Roles")">Roles</a>/@ViewBag.Title
+</h3>
+<hr />
+
+<div class="row">
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        
+    </dl>
+ 
+                @{ var resources = Model.Permissions.Select(x => x.ResourceName).Distinct();
+
+                    foreach (var res in resources)
+                    {
+                        <div class="col-md-3">
+                        <div class="table table-bordered col-md-3">
+                            <b> @res</b>
+                            <ul>
+                                @foreach (var perm in Model.Permissions)
+                                {
+                                    if (perm.ResourceName != res) { continue; }
+                                    <li> @perm.ActionName</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    }
+                }
+
+
+</div>
+<div class="row">
+    <a href="@Url.Action("EditRole", new { id = Model.Id })" class="btn btn-primary">
+        <span class="glyphicon glyphicon-edit"></span> Edit role
+    </a>
+</div>

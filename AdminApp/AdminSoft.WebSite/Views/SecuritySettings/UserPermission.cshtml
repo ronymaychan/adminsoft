@@ -1,0 +1,78 @@
+﻿@model PLNFramework.Security.ViewModels.ListAppUserPermissionViewModel
+
+@{
+    ViewBag.Title = "User Permissions";
+
+}
+
+<h3>
+    <a href="@Url.Content("~/SecuritySettings/")">Admin</a>/<a href="@Url.Content("~/SecuritySettings/Users")">Users</a>/@ViewBag.Title
+</h3>
+
+<a href="@Url.Action("CreateUserPermission",new { id= Model.UserId })" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New User Permission
+</a>
+<p></p>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <b>UserName</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        @Html.DisplayFor(x => x.UserName)<br />
+    </div>
+</div>
+<hr />
+<div class="row">
+    @{
+        var divInicial = true;
+        int index = 1;
+        var resourceKeys = Model.UserPermissions.Select(x => x.ResourceKey).Distinct();
+    }
+    @foreach (var key in resourceKeys)
+    {
+        if (divInicial)
+        {
+            @:<div class='row'>
+                divInicial = false;
+        }
+
+        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6" >
+            <div class="panel panel-primary ">
+                <div class="panel-heading">
+                    @{ var permission = Model.UserPermissions.Where(x => x.ResourceKey == key).FirstOrDefault(); }
+                    <b> @permission.ResourceName </b>
+                </div>
+                <div class="panel-body">
+                    <div class="container">
+                        @{ var actions = Model.UserPermissions.Where(x => x.ResourceKey == permission.ResourceKey).Select(x => x.ActionName).Distinct(); }
+                        @foreach (var action in actions)
+                        {
+                            @action <br />
+                        }
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a class="btn btn-primary" href="@Url.Content("/SecuritySettings/EditUserPermission/")@permission.Id">Edit</a>
+                </div>
+            </div>
+        </div>
+                            if ((index % 6) == 0)
+                            {
+                                divInicial = true;
+                                @: </div>
+
+
+                                }
+                                index++;
+                            }
+
+    @if (!Model.UserPermissions.Any())
+    {
+        <div class="alert alert-info">
+            El usuario no tiene permisos configurados
+        </div>
+    }
+
+</div>
+
+<br />

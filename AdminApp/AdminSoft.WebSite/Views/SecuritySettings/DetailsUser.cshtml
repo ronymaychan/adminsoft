@@ -1,0 +1,134 @@
+﻿@model PLNFramework.Security.ViewModels.DetailsAppUserViewModel
+
+@{
+    ViewBag.Title = "Details User";
+}
+
+<h3>
+    <a href="@Url.Content("~/SecuritySettings/")">Admin</a>/<a href="@Url.Content("~/SecuritySettings/Users")">Users</a>/@ViewBag.Title
+</h3>
+<hr />
+
+<div>
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#Roles" aria-controls="Roles" role="tab" data-toggle="tab">Roles</a></li>
+        <li role="presentation"><a href="#Permission" aria-controls="Permission" role="tab" data-toggle="tab">Permission</a></li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="Roles">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        Roles
+                    </dt>
+                    <dd>
+                        <ul>
+                            @foreach (var rol in Model.AssignedRoles)
+                            {
+                                <li>@rol.Name</li>
+                            }
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+
+            <div class="row">
+                <div class="col-md-offset-1">
+                    <a href="@Url.Action("EditUser", new { id = Model.Id })" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-edit"></span> Edit user
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="Permission">
+            <div>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
+                    <dt>
+                        Roles
+                    </dt>
+                    <dd>
+                        <ul>
+                            @foreach (var rol in Model.AssignedRoles)
+                            {
+                                <li>@rol.Name</li>
+                            }
+                        </ul>
+                    </dd>
+                </dl>
+            </div>
+            <div class="row">
+                @{
+                    var divInicial = true;
+                    int index = 1;
+                    var resourceKeys = Model.UserPermissions.Select(x => x.ResourceKey).Distinct();
+                    foreach (var key in resourceKeys)
+                    {
+                        if (divInicial)
+                        {
+                            @:<div class='row'>
+                             divInicial = false;
+                        }
+                        <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                            <div class="panel panel-primary ">
+                                <div class="panel-heading">
+                                    @{
+                                        var permission = Model.UserPermissions.Where(x => x.ResourceKey == key).FirstOrDefault();
+                                    }
+                                    <b> @permission.ResourceName </b>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="container">
+
+                                        @{
+
+                                            var actions = Model.UserPermissions.Where(x => x.ResourceKey == permission.ResourceKey).Select(x => x.ActionName).Distinct();
+                                        }
+                                        @foreach (var action in actions)
+                                        {
+                                            @action <br />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                                            if ((index % 6) == 0)
+                                            {
+                                                @: </div>
+                divInicial = true;
+
+                                                }
+                                                index++;
+                                            }
+}
+
+                @if (!Model.UserPermissions.Any())
+                {
+                    <div class="alert alert-info">
+                        El usuario no tiene permisos configurados
+                    </div>
+                }
+            </div>
+    </div>
+
+</div>
+

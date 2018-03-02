@@ -1,0 +1,17 @@
+﻿@model PLNFramework.Security.ViewModels.DetailsAppUserViewModel
+
+@{
+    ViewBag.Title = "Details User permission";
+}
+
+<h3><a href="@Url.Content("~/SecuritySettings/")">Admin</a>/Users</h3>
+
+<a href="@Url.Action("CreateUserPermission")" class="btn btn-primary">
+    <span class="glyphicon glyphicon-plus"></span> New permission
+</a>
+<p></p>
+
+<div>
+    Details User Permission
+</div>
+

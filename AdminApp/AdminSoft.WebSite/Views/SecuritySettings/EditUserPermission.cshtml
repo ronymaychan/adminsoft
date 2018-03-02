@@ -1,0 +1,68 @@
+﻿@model PLNFramework.Security.ViewModels.EditAppUserPermissionViewModel
+
+@{
+    ViewBag.Title = "Edit User Permission";
+}
+
+<h3>
+    <a href="@Url.Content("~/SecuritySettings/")">Admin</a>/<a href="@Url.Content("~/SecuritySettings/Users")">Users</a>/<a href="@Url.Content("~/SecuritySettings/UserPermission/")@Model.User.Id">User permission</a>/@ViewBag.Title
+</h3>
+<hr />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.HiddenFor(model => model.User.Id)
+        @Html.HiddenFor(model => model.ResourceKey)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(x => x.User.Email)
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ResourceName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(x => x.ResourceName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedActions, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @foreach (var action in Model.AvailableActions)
+                {
+                    var selected = false;
+                    if (Model.SelectedActions.Contains(action.Key))
+                    {
+                        selected = true;
+                    }
+                    <input type="checkbox" name="SelectedActions" value="@action.Key" checked="@selected" /> @action.Name <br />
+                }
+            </div>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger">
+                @ViewBag.Error
+            </div>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
