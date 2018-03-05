@@ -55,7 +55,7 @@ namespace PLNSecurity.Controllers
         {
 
             if (HttpContext.GetOwinContext().Authentication.User.Identity.IsAuthenticated)
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("Index","Home"); 
 
             ViewBag.ReturnUrl = returnUrl;
             return View();
