@@ -4,10 +4,10 @@ using PLNFramework.Mailing;
 
 namespace AdminSoft.Test
 {
-    [TestClass]
+    //[TestClass]
     public class EmailSenderTest
     {
-        [TestMethod]
+        //[TestMethod]
         public void SendEmailTest()
         {
             IEmail email = new Email();

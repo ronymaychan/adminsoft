@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Linq;
 using AdminSoft.Data.Employees;
 using AdminSoft.Data;
@@ -9,13 +8,14 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using AdminSoft.Data.Interfaces.Employees;
 using AdminSoft.Domain.Employees;
+using NUnit.Framework;
 
 namespace AdminSoft.Test
 {
-    [TestClass]
+    [TestFixture]
     public class EmployeeTest
     {
-        [TestMethod]
+        [Test]
         public void EmployeeFindByIdTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -25,7 +25,7 @@ namespace AdminSoft.Test
                 Assert.IsNotNull(employee);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeGetAllTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -35,7 +35,7 @@ namespace AdminSoft.Test
                 Assert.IsNotNull(employees);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeQueryTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -47,10 +47,10 @@ namespace AdminSoft.Test
 
                 //exec query
                 var employees = service.Query(employee, "City DESC");
-                Assert.IsNotNull(employee);
+                Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(employee);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeQueryPageTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -66,7 +66,7 @@ namespace AdminSoft.Test
                 Assert.IsNotNull(employees);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeInsertTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -84,7 +84,7 @@ namespace AdminSoft.Test
                 Assert.IsNotNull(employee.EmployeeId);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeUpdateTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -102,7 +102,7 @@ namespace AdminSoft.Test
                 Assert.IsNotNull(employee.EmployeeId);
             }
         }
-        [TestMethod]
+        [Test]
         public void EmployeeDeleteTest()
         {
             using (IDataContext context = new AdminSoftContext())
@@ -127,6 +127,10 @@ namespace AdminSoft.Test
                 service.Delete(employee);
                 Assert.IsNotNull(employee.EmployeeId);
             }
+        }
+        [Test]
+        public void Demo() {
+            Assert.IsTrue(true);
         }
     }
 }
