@@ -27,6 +27,9 @@ node ("master") {
     		"	env.BUILD_URL: ${env.BUILD_URL} \n" +
     		"	env.JOB_URL: ${env.JOB_URL} \n"
     }
+	stage('checkout'){
+		git branch: env.BRANCH_NAME,  credentialsId: '5e3f0a7c-1045-40e9-b310-d481d65de1bf', url: 'git@github.com:ronymaychan/adminsoft.git'
+	}
     stage('Build') { 
         // 
     }
