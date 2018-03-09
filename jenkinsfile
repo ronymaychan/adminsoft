@@ -1,11 +1,5 @@
 
-def config              =   "Debug"
-def base_folder         = 	"AdminApp/"
-def solution_file       =   "AdminSoft.sln"
-def test_project_name   =   "AdminSoft.Test"
-def node_execute		=	"master"
-
-node (node_execute) { 
+node { 
     stage('Build') { 
         // 
     }
