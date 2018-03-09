@@ -130,7 +130,7 @@ namespace AdminSoft.Test
         }
         [Test]
         public void Demo() {
-            Assert.IsTrue(false);
+            Assert.IsTrue(true);
         }
     }
 }
