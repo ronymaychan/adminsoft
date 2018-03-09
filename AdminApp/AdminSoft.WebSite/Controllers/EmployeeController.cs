@@ -1,8 +1,7 @@
 ﻿/*
- *  master
- *      developer
- *          feature_cat_emp 1.0.0
- */
+*  master
+*           
+*/
   
 using AdminSoft.Data.Interfaces.Employees;
 using AdminSoft.Domain.Employees;
@@ -21,12 +20,12 @@ namespace AdminSoft.WebSite.Controllers
     [AuthorizeResource(ActionKey = "ACCESS", ResourceKey = "EMPLOYEE")]
     public class EmployeeController : Controller
     {
-        IEmployeeRepository repository;
+        IEmployeeRepository repository;   
         FileUploadHelper fileUpload;
         public EmployeeController(IEmployeeRepository repository, FileUploadHelper fileUpload)
         {
             this.repository = repository;
-            this.fileUpload = fileUpload;
+            this.fileUpload = fileUpload;  
         }
         [AuthorizeResource(ActionKey = "ACCESS", ResourceKey = "EMPLOYEE")]
         public ActionResult Index()
