@@ -1,3 +1,10 @@
+def config              =   "Debug"
+def base_folder         = "AdminApp/"
+def solution_file       =   "AdminSoft.sln"
+def test_project_name   =   "AdminSoft.Test"
+def test_dll_path       =   "${base_folder}${test_project_name}/bin/${config}/${test_project_name}.dll" 
+
+
 node ("master") {  
     stage('Information') { 
         if(isUnix()){
