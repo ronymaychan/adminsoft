@@ -30,13 +30,20 @@ node ("master") {
 	stage('checkout'){
 		git branch: env.BRANCH_NAME,  credentialsId: '5e3f0a7c-1045-40e9-b310-d481d65de1bf', url: 'git@github.com:ronymaychan/adminsoft.git'
 	}
-    stage('Build') { 
-        // 
+    stage("Restore Nuget"){
+        echo "Restore Nuget Packages"
+        bat "NuGet.exe restore ${base_folder}${solution_file}"
     }
-    stage('Test') { 
-        // 
+    stage("Build"){
+        echo "Build solution"
+        bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\"  /p:DeployOnBuild=true"
     }
-    stage('Deploy') { 
-        // 
+    stage("Test"){
+        echo "Testing"
+        bat "nunit3-console.exe ${test_dll_path}"
+        nunit testResultsPattern: '*.xml'
     }
+    stage("Deploy test") {
+    	echo "deploying"
+	}
 }
