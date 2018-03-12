@@ -33,7 +33,7 @@ node ("master") {
 				"	env.JENKINS_HOME: ${env.JENKINS_HOME} \n" +
 				"	env.JENKINS_URL: ${env.JENKINS_URL} \n" +
 				"	env.BUILD_URL: ${env.BUILD_URL} \n" +
-				"	env.JOB_URL: ${env.JOB_URL} \n"
+				"	env.JOB_URL: ${env.JOB_URL} \n" +
 				"	env.developers_email: ${env.developers_email} \n"
 		}
 		stage('checkout'){
