@@ -1,7 +1,8 @@
-def config              =   "Debug"
+def config              = "Debug"
 def base_folder         = "AdminApp/"
-def solution_file       =   "AdminSoft.sln"
-def test_project_name   =   "AdminSoft.Test"
+def solution_file       = "AdminSoft.sln"
+def test_project_name   = "AdminSoft.Test"
+def developers_email	= ""
 
 
 node ("master") {  
@@ -36,7 +37,7 @@ node ("master") {
 				"	env.JENKINS_URL: ${env.JENKINS_URL} \n" +
 				"	env.BUILD_URL: ${env.BUILD_URL} \n" +
 				"	env.JOB_URL: ${env.JOB_URL} \n" +
-				"	env.developers_email: ${env.developers_email} \n"
+				"	developers_email: ${developers_email} \n"
 		}
 		stage('checkout'){
 			git branch: env.BRANCH_NAME,  credentialsId: '5e3f0a7c-1045-40e9-b310-d481d65de1bf', url: 'git@github.com:ronymaychan/adminsoft.git'
@@ -57,12 +58,12 @@ node ("master") {
 				echo "deploying for testing"
 			}
 		}
-		if(env.developers_email != null){
+		if(developers_email != null){
 			emailext ( 	
 				subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
 				body: """<p>SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 					<p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-				to: env.developers_email
+				to: developers_email
 			)
 		}
 	}catch(err){
@@ -72,7 +73,7 @@ node ("master") {
                 body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
                     <p>${err}</p>
                     <p>Check console output at "<a href="${env.BUILD_URL}">${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>"</p>""",
-                to: env.developers_email
+                to: developers_email
             )
 		}
     }
