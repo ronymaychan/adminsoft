@@ -6,7 +6,7 @@ def test_dll_path       =   "${base_folder}${test_project_name}/bin/${config}/${
 
 
 pipeline {
-	agent master
+	agent any
 	 stages {
 		 stage ('Information') {
 			if(isUnix()){
@@ -35,6 +35,7 @@ pipeline {
     		"	env.JENKINS_URL: ${env.JENKINS_URL} \n" +
     		"	env.BUILD_URL: ${env.BUILD_URL} \n" +
     		"	env.JOB_URL: ${env.JOB_URL} \n"
+			"	env.developers_email: ${env.developers_email} \n"
 		 }
 		 stage ('Checkout') {
 
