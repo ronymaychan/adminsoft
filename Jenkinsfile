@@ -77,5 +77,6 @@ node ("master") {
                 to: developers_email
             )
 		}
+		bat "exit 1"  
     }
 }
