@@ -58,6 +58,12 @@ node ("master") {
 				def publishProfile = "testing"
 				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}
+			stage("Deploying angular"){
+				dir('Adminweb') {
+					bat "npm install"
+					bat "ng build"
+				}
+			}
 		}
 		if(developers_email != ""){
 			emailext ( 	
