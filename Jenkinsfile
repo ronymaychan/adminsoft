@@ -59,7 +59,7 @@ node ("master") {
 				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}
 		}
-		if(developers_email != null){
+		if(developers_email != ""){
 			emailext ( 	
 				subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
 				body: """<p>SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
@@ -68,7 +68,7 @@ node ("master") {
 			)
 		}
 	}catch(err){
-		if(env.developers_email != null){
+		if(env.developers_email != ""){
 			emailext ( 
                 subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
                 body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
