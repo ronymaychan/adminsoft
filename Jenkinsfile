@@ -46,7 +46,7 @@ node ("master") {
 			bat "NuGet.exe restore ${base_folder}${solution_file}"
 		}
 		stage("Build"){
-			bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\"  /p:DeployOnBuild=true"
+			bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\""
 		}
 		stage("Testing"){
 			bat "nunit3-console.exe ${test_dll_path}"
@@ -54,8 +54,9 @@ node ("master") {
 		}
 
 		if(env.BRANCH_NAME == "master"){
-			stage("Deploy test") {
-				echo "deploying for testing"
+			stage("Deploying tests") {
+				def publishProfile = "testing"
+				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}
 		}
 		if(developers_email != null){
