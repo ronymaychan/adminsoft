@@ -53,9 +53,16 @@ node ("master") {
 			nunit testResultsPattern: '*.xml'
 		}
 
+		if(env.BRANCH_NAME == "develop"){
+			stage("Deploying develop") {
+				def publishProfile = "develop"
+				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
+			}
+		}
+
 		if(env.BRANCH_NAME == "master"){
 			stage("Deploying tests") {
-				def publishProfile = "testing"
+				def publishProfile = "master"
 				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}
 			stage("Deploying angular"){
@@ -65,6 +72,7 @@ node ("master") {
 				}
 			}
 		}
+
 		if(developers_email != ""){
 			emailext ( 	
 				subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", 
