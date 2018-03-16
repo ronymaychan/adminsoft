@@ -26,7 +26,7 @@ node ("master") {
 		if(env.BRANCH_NAME == "develop"){
 			stage("Deploying develop") {
 				def publishProfile = "develop"
-				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
+				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:PublishProfile=${publishProfile}"
 			}
 		}
 		if(env.BRANCH_NAME == "master"){
