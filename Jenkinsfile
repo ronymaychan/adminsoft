@@ -32,7 +32,7 @@ node ("master") {
 		if(env.BRANCH_NAME == "master"){
 			stage("Deploying tests") {
 				def publishProfile = "master"
-				bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
+				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:PublishProfile=${publishProfile}"
 			}
 			/*Deploy angular app*/
 			/*stage("Deploying angular"){
