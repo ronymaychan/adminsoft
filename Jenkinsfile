@@ -22,13 +22,13 @@ node ("master") {
 		if(env.BRANCH_NAME == "develop"){
 			stage("Deploying develop") {
 				def publishProfile = "develop"
-				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:PublishProfile=${publishProfile}"
+				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}
 		}
 		if(env.BRANCH_NAME == "master"){
 			stage("Deploying tests") {
 				def publishProfile = "master"
-				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:PublishProfile=${publishProfile}"
+				bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}			
 		}
 	}catch(err){
