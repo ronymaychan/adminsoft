@@ -12,28 +12,7 @@ node ("master") {
 				}else{
 					echo 'SO WINDOWS'
 				}
-				echo "	env.BRANCH_NAME: ${env.BRANCH_NAME} \n" +
-				"	env.CHANGE_ID: ${env.CHANGE_ID} \n" +
-				"	env.CHANGE_URL: ${env.CHANGE_URL} \n" +
-				"	env.CHANGE_TITLE: ${env.CHANGE_TITLE} \n" +
-				"	env.CHANGE_AUTHOR: ${env.CHANGE_AUTHOR} \n" +
-				"	env.CHANGE_AUTHOR_DISPLAY_NAME: ${env.CHANGE_AUTHOR_DISPLAY_NAME} \n" +
-				"	env.CHANGE_AUTHOR_EMAIL: ${env.CHANGE_AUTHOR_EMAIL} \n" +
-				"	env.CHANGE_TARGET: ${env.CHANGE_TARGET} \n" +
-				"	env.BUILD_NUMBER: ${env.BUILD_NUMBER} \n" +
-				"	env.BUILD_ID: ${env.BUILD_ID} \n" +
-				"	env.BUILD_DISPLAY_NAME: ${env.BUILD_DISPLAY_NAME} \n" +
-				"	env.JOB_NAME: ${env.JOB_NAME} \n" +
-				"	env.JOB_BASE_NAME: ${env.JOB_BASE_NAME} \n" +
-				"	env.BUILD_TAG: ${env.BUILD_TAG}" +
-				"	env.EXECUTOR_NUMBER: ${env.EXECUTOR_NUMBER} \n" +
-				"	env.NODE_NAME: ${env.NODE_NAME} \n" +
-				"	env.NODE_LABELS: ${env.NODE_LABELS} \n" +
-				"	env.JENKINS_HOME: ${env.JENKINS_HOME} \n" +
-				"	env.JENKINS_URL: ${env.JENKINS_URL} \n" +
-				"	env.BUILD_URL: ${env.BUILD_URL} \n" +
-				"	env.JOB_URL: ${env.JOB_URL} \n" +
-				"	developers_email: ${developers_email} \n"
+				echo "env.BRANCH_NAME: ${env.BRANCH_NAME}"
 		}
 		stage('checkout'){
 			//git branch: env.BRANCH_NAME,  credentialsId: '5e3f0a7c-1045-40e9-b310-d481d65de1bf', url: 'git@github.com:ronymaychan/adminsoft.git'
@@ -48,7 +27,7 @@ node ("master") {
 			//bat "nunit3-console.exe ${test_dll_path}"
 			//nunit testResultsPattern: '*.xml'
 		}
-		if(env.BRANCH_NAME == "develop"){
+		/*if(env.BRANCH_NAME == "develop"){
 			stage("Deploying develop") {
 				//def publishProfile = "develop"
 				//bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
@@ -59,7 +38,7 @@ node ("master") {
 				//def publishProfile = "master"
 				//bat "MSBuild.exe ${base_folder}${solution_file}  /p:Platform=\"Any CPU\" /p:DeployOnBuild=true /p:PublishProfile=${publishProfile}"
 			}			
-		}
+		}*/
 	}catch(err){
 		if((env.BRANCH_NAME  == "master" || env.BRANCH_NAME  == "develop") &&
 			env.adminsoft_email_list != null && env.adminsoft_email_list != ""){
