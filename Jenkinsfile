@@ -14,14 +14,14 @@ node ("master") {
 			//git branch: env.BRANCH_NAME,  credentialsId: '5e3f0a7c-1045-40e9-b310-d481d65de1bf', url: 'git@github.com:ronymaychan/adminsoft.git'
 		}
 		stage("Restore Nuget"){
-			//bat "NuGet.exe restore ${base_folder}${solution_file}"
+			bat "NuGet.exe restore ${base_folder}${solution_file}"
 		}
 		stage("Build"){
-			//bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\""
+			bat "MSBuild.exe ${base_folder}${solution_file} /p:\"Configuration=${config}\" /p:Platform=\"Any CPU\""
 		}
 		stage("Testing"){
-			//bat "nunit3-console.exe ${test_dll_path}"
-			//nunit testResultsPattern: '*.xml'
+			bat "nunit3-console.exe ${test_dll_path}"
+			nunit testResultsPattern: '*.xml'
 		}
 		/*if(env.BRANCH_NAME == "develop"){
 			stage("Deploying develop") {
