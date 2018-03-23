@@ -4,10 +4,10 @@ def base_folder = "AdminApp/"
 def solution_file = "AdminSoft.sln"
 def test_project_name = "AdminSoft.Test"
 node ("master") {  
-ws("workspace/${env.JOB_NAME}") {
+ws("workspace/adminsoft/${env.BRANCH_NAME.replaceAll('/', '-')}") {
 	try{
 		def test_dll_path = "${base_folder}${test_project_name}/bin/${config}/${test_project_name}.dll" 
-		/*stage('Information') { 
+		stage('Information') { 
 				echo "	env.BRANCH_NAME: ${env.BRANCH_NAME} \n" +
 				"	env.CHANGE_ID: ${env.CHANGE_ID} \n" +
 				"	env.CHANGE_URL: ${env.CHANGE_URL} \n" +
@@ -29,7 +29,7 @@ ws("workspace/${env.JOB_NAME}") {
 				"	env.JENKINS_URL: ${env.JENKINS_URL} \n" +
 				"	env.BUILD_URL: ${env.BUILD_URL} \n" +
 				"	env.JOB_URL: ${env.JOB_URL} \n"
-		}*/
+		}
 		stage('checkout'){
 			checkout scm
 		}
