@@ -4,7 +4,7 @@ def base_folder = "AdminApp/"
 def solution_file = "AdminSoft.sln"
 def test_project_name = "AdminSoft.Test"
 node ("master") {  
-ws("workspace/demo/${env.BRANCH_NAME}") {
+ws("workspace/adminsoft/${env.BRANCH_NAME.replaceAll('/', '-')}") {
 	try{
 		def test_dll_path = "${base_folder}${test_project_name}/bin/${config}/${test_project_name}.dll" 
 		stage('Information') { 
