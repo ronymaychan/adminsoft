@@ -9,7 +9,7 @@ using Microsoft.Owin.Security.OAuth;
 using PLNFramework.Security;
 using PLNFramework.Security.Models;
 using PLNFramework.Security.Providers;
-
+using Microsoft.Owin.Security.Google;
 
 namespace PLNFramework.Security.MVCUI
 {
@@ -83,19 +83,19 @@ namespace PLNFramework.Security.MVCUI
             //    clientId: "",
             //    clientSecret: "");
 
-            //app.UseTwitterAuthentication(
-            //   consumerKey: "",
-            //   consumerSecret: "");
+            app.UseTwitterAuthentication(
+               consumerKey: "iXzFV3Tuur4FI2TdCJWhtONnN",
+               consumerSecret: "XY5jsVZ4vVR79vTQ6x7OkR7OrjL7LxNwf7OWcYSAjXlPrEu5R2");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "1448621061925831",
-            //   appSecret: "cebc155aff8eada4635886bad29de18c");
+            app.UseFacebookAuthentication(
+               appId: "1448621061925831",
+               appSecret: "cebc155aff8eada4635886bad29de18c");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "773080847014-ha6rlhgu2is0b345ppaaap35iifa48nn.apps.googleusercontent.com",
+                ClientSecret = "1CWTvVGsMtHzDB-hXecPc_e0"
+            });
         }
     }
 }

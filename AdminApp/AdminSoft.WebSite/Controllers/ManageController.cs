@@ -279,6 +279,10 @@ namespace PLNSecurity.Controllers
                 message == ManageMessageId.RemoveLoginSuccess ? "Se ha quitado el inicio de sesión externo."
                 : message == ManageMessageId.Error ? "Se ha producido un error."
                 : "";
+
+            if (TempData["message"] != null)
+                ViewBag.StatusMessage = TempData["message"];
+
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
             {
@@ -314,6 +318,7 @@ namespace PLNSecurity.Controllers
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             }
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
+            TempData["message"] = AddErrorsToString(result);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
@@ -347,6 +352,14 @@ namespace PLNSecurity.Controllers
                 ModelState.AddModelError("", error);
             }
         }
+        private string AddErrorsToString(IdentityResult result)
+        {
+            string str = "";
+            foreach (var error in result.Errors)
+                str += ", " + error;
+
+            return string.IsNullOrEmpty(str) ? "" : str.Substring(2);
+        }
 
         private bool HasPassword()
         {
@@ -376,7 +389,8 @@ namespace PLNSecurity.Controllers
             SetPasswordSuccess,
             RemoveLoginSuccess,
             RemovePhoneSuccess,
-            Error
+            Error,
+            UserAlreadyExist
         }
 
 #endregion

@@ -111,10 +111,9 @@ namespace PLNFramework.Security.Controllers
         {
             if (ModelState.IsValid)
             {
-                var id = Guid.NewGuid().ToString();
 
-                var user = new AppUser { Id = id, UserName = model.Email, Email = model.Email };
-                user.EmailConfirmed = true;
+                var user = new AppUser { Id = Guid.NewGuid().ToString(), UserName = model.Email, Email = model.Email, EmailConfirmed= true};
+
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 if (result.Succeeded)

@@ -162,9 +162,8 @@ namespace PLNSecurity.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
-                //TODO: Si requiere activiación por correo electronico configurar EmailConfirmed = false
-                user.EmailConfirmed = true;
+                var user = new AppUser { Id = Guid.NewGuid().ToString(), UserName = model.Email, Email = model.Email, EmailConfirmed = true };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -309,7 +308,8 @@ namespace PLNSecurity.Controllers
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Solicitar redireccionamiento al proveedor de inicio de sesión externo
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
+            var url = Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl });
+            return new ChallengeResult(provider, url);
         }
 
         //
@@ -397,7 +397,7 @@ namespace PLNSecurity.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new AppUser { UserName = model.Email, Email = model.Email };
+                var user = new AppUser { Id = Guid.NewGuid().ToString(), UserName = model.Email, Email = model.Email, EmailConfirmed = true };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
