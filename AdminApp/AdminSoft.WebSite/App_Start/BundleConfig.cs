@@ -27,8 +27,10 @@ namespace AdminSoft.WebSite
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/bootstrap-table.css",
-                      "~/Content/site.css",
-                      "~/Content/sb-admin-2.css"));
+                      "~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/sbadmin").Include(
+               "~/Content/sb-admin-2.css"));
 
             bundles.Add(new StyleBundle("~/Content/fontawesome").Include(
                 "~/Content/fontawesome-all.css"));
