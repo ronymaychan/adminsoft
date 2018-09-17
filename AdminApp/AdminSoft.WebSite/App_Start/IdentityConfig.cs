@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AdminSoft.WebSite.Models;
+using PLNFramework.Security;
+using PLNFramework.Security.Models;
 
 namespace AdminSoft.WebSite
 {
@@ -33,33 +35,33 @@ namespace AdminSoft.WebSite
     }
 
     // Configure el administrador de usuarios de aplicación que se usa en esta aplicación. UserManager se define en ASP.NET Identity y se usa en la aplicación.
-    public class ApplicationUserManager : UserManager<ApplicationUser>
+    public class ApplicationUserManager : AppUserManager
     {
-        public ApplicationUserManager(IUserStore<ApplicationUser> store)
-            : base(store)
+        public ApplicationUserManager(AppUserStore store) : base(store)
         {
         }
-
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public new static AppUserManager Create(IdentityFactoryOptions<AppUserManager> options, IOwinContext context)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<ApplicationDbContext>()));
+            var userStore = new AppUserStore(context.Get<AppSecurityContext>());
+            var manager = new AppUserManager(userStore);
+
             // Configure la lógica de validación de nombres de usuario
-            manager.UserValidator = new UserValidator<ApplicationUser>(manager)
+
+            manager.UserValidator = new AppUserValidator(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
+                RequireUniqueEmail = true,
             };
 
             // Configure la lógica de validación de contraseñas
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
-                RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireNonLetterOrDigit = false,
+                RequireDigit = false,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
-
 
             // Configurar valores predeterminados para bloqueo de usuario
             manager.UserLockoutEnabledByDefault = true;
@@ -68,43 +70,26 @@ namespace AdminSoft.WebSite
 
             // Registre proveedores de autenticación en dos fases. Esta aplicación usa los pasos Teléfono y Correo electrónico para recibir un código para comprobar el usuario
             // Puede escribir su propio proveedor y conectarlo aquí.
-            manager.RegisterTwoFactorProvider("Código telefónico", new PhoneNumberTokenProvider<ApplicationUser>
+            manager.RegisterTwoFactorProvider("Código telefónico", new PhoneNumberTokenProvider<AppUser, string>
             {
                 MessageFormat = "Su código de seguridad es {0}"
             });
-            manager.RegisterTwoFactorProvider("Código de correo electrónico", new EmailTokenProvider<ApplicationUser>
+
+            manager.RegisterTwoFactorProvider("Código de correo electrónico", new EmailTokenProvider<AppUser, string>
             {
                 Subject = "Código de seguridad",
                 BodyFormat = "Su código de seguridad es {0}"
             });
+
             manager.EmailService = new EmailService();
             manager.SmsService = new SmsService();
+
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
-                    new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new AppDataProtectorTokenProvider(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
-        }
-    }
-
-    // Configure el administrador de inicios de sesión que se usa en esta aplicación.
-    public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
-    {
-        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager)
-            : base(userManager, authenticationManager)
-        {
-        }
-
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
-        {
-            return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
-        }
-
-        public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
-        {
-            return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
     }
 }

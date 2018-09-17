@@ -9,10 +9,11 @@ using System.Web.Http;
 using PLNFramework.Security.Filters;
 using AdminSoft.WebSite.Models.Dto;
 using AdminSoft.WebSite.Helpers;
+using System.Web.Http.Description;
 
 namespace AdminSoft.WebSite.Controllers.Api
 {
-    [AuthorizeResourceApiAttribute(ActionKey = "ACCESS", ResourceKey = "EMPLOYEE")]
+    //[AuthorizeResourceApiAttribute(ActionKey = "ACCESS", ResourceKey = "EMPLOYEE")]
     public class EmployeeController : ApiController
     {
         IEmployeeRepository repository;
@@ -21,7 +22,9 @@ namespace AdminSoft.WebSite.Controllers.Api
             this.repository = repository;
         }
 
-        [AuthorizeResourceApiAttribute(ActionKey = "READ", ResourceKey = "EMPLOYEE")]
+        //[AuthorizeResourceApiAttribute(ActionKey = "READ", ResourceKey = "EMPLOYEE")]
+        [HttpGet]
+        [ActionName("GetAll")]
         public IHttpActionResult Get(string term = null, int offset = 0, int limit = 20)
         {
             int totalRows = 0;
@@ -46,7 +49,10 @@ namespace AdminSoft.WebSite.Controllers.Api
             return Ok(response);
         }
 
-        [AuthorizeResourceApiAttribute(ActionKey = "READ", ResourceKey = "EMPLOYEE")]
+        //[AuthorizeResourceApiAttribute(ActionKey = "READ", ResourceKey = "EMPLOYEE")]
+        [HttpGet]
+        [ActionName("Get")]
+        [ResponseType(typeof(CountryDto))]
         public IHttpActionResult Get(int id)
         {
             var employee = repository.Find(id);
@@ -57,7 +63,10 @@ namespace AdminSoft.WebSite.Controllers.Api
             return Ok(dto);
         }
 
-        [AuthorizeResourceApiAttribute(ActionKey = "WRITE", ResourceKey = "EMPLOYEE")]
+        //[AuthorizeResourceApiAttribute(ActionKey = "WRITE", ResourceKey = "EMPLOYEE")]
+        [HttpPost]
+        [ActionName("Create")]
+        [ResponseType(typeof(CountryDto))]
         public IHttpActionResult Post(Employeedto dto)
         {
             if (dto == null)
@@ -67,7 +76,10 @@ namespace AdminSoft.WebSite.Controllers.Api
             return Ok(MapperHelper.Map<Employeedto>(employee));
         }
 
-        [AuthorizeResourceApiAttribute(ActionKey = "MODIFY", ResourceKey = "EMPLOYEE")]
+        //[AuthorizeResourceApiAttribute(ActionKey = "MODIFY", ResourceKey = "EMPLOYEE")]
+        [HttpPut]
+        [ActionName("Update")]
+        [ResponseType(typeof(CountryDto))]
         public IHttpActionResult Put(Employeedto dto)
         {
             if (dto == null)
@@ -82,7 +94,10 @@ namespace AdminSoft.WebSite.Controllers.Api
             return Ok(MapperHelper.Map<Employeedto>(employee));
         }
 
-        [AuthorizeResourceApiAttribute(ActionKey = "DELETE", ResourceKey = "EMPLOYEE")]
+        //[AuthorizeResourceApiAttribute(ActionKey = "DELETE", ResourceKey = "EMPLOYEE")]
+        [HttpDelete]
+        [ActionName("Delete")]
+        [ResponseType(typeof(CountryDto))]
         public IHttpActionResult Delete(int id)
         {
             var employee = repository.Find(id);

@@ -10,6 +10,8 @@ using PLNFramework.Security;
 using PLNFramework.Security.Models;
 using PLNFramework.Security.Providers;
 using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.Facebook;
+using AdminSoft.WebSite;
 
 namespace PLNFramework.Security.MVCUI
 {
@@ -26,7 +28,7 @@ namespace PLNFramework.Security.MVCUI
         {
             // Configure el contexto de base de datos, el administrador de usuarios y el administrador de inicios de sesión para usar una única instancia por solicitud
             app.CreatePerOwinContext(() => new AppSecurityContext("SecurityConnection"));
-            app.CreatePerOwinContext<AppUserManager>(AppUserManager.Create);
+            app.CreatePerOwinContext<AppUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<AppSignInManager>(AppSignInManager.Create);
 
             // Permitir que la aplicación use una cookie para almacenar información para el usuario que inicia sesión
@@ -59,7 +61,7 @@ namespace PLNFramework.Security.MVCUI
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
+                TokenEndpointPath = new PathString("/api/TokenAuth/Authenticate"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(30),
@@ -83,19 +85,43 @@ namespace PLNFramework.Security.MVCUI
             //    clientId: "",
             //    clientSecret: "");
 
-            app.UseTwitterAuthentication(
-               consumerKey: "iXzFV3Tuur4FI2TdCJWhtONnN",
-               consumerSecret: "XY5jsVZ4vVR79vTQ6x7OkR7OrjL7LxNwf7OWcYSAjXlPrEu5R2");
-
-            app.UseFacebookAuthentication(
-               appId: "1448621061925831",
-               appSecret: "cebc155aff8eada4635886bad29de18c");
-
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            /*app.UseFacebookAuthentication(new FacebookAuthenticationOptions()
             {
-                ClientId = "773080847014-ha6rlhgu2is0b345ppaaap35iifa48nn.apps.googleusercontent.com",
-                ClientSecret = "1CWTvVGsMtHzDB-hXecPc_e0"
-            });
+                AppId = "2049308795393284",
+                AppSecret = "cc96ec17417942a50bc0d590041947bf",
+                Scope = { "email" }
+            });*/
+
+            /*
+            var facebookAuthenticationOptions = new FacebookAuthenticationOptions
+            {
+                AppId = "2049308795393284",
+                AppSecret = "cc96ec17417942a50bc0d590041947bf"
+            };
+
+            facebookAuthenticationOptions.Scope.Add("email");*/
+
+            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+            //app.UseTwitterAuthentication(
+            //   consumerKey: "iXzFV3Tuur4FI2TdCJWhtONnN",
+            //   consumerSecret: "XY5jsVZ4vVR79vTQ6x7OkR7OrjL7LxNwf7OWcYSAjXlPrEu5R2");
+
+            //var facebookAuthenticationOptions = new FacebookAuthenticationOptions()
+            //{
+            //   AppId="1448621061925831",
+            //   AppSecret= "cebc155aff8eada4635886bad29de18c"
+            //};
+            //facebookAuthenticationOptions.Scope.Add("email");
+
+            //app.UseFacebookAuthentication(facebookAuthenticationOptions);
+
+
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "773080847014-ha6rlhgu2is0b345ppaaap35iifa48nn.apps.googleusercontent.com",
+            //    ClientSecret = "1CWTvVGsMtHzDB-hXecPc_e0"
+            //});
         }
     }
 }

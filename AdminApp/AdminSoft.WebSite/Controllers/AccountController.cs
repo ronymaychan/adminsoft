@@ -359,7 +359,7 @@ namespace PLNSecurity.Controllers
             }
 
             // Si el usuario ya tiene un inicio de sesión, iniciar sesión del usuario con este proveedor de inicio de sesión externo
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -404,7 +404,7 @@ namespace PLNSecurity.Controllers
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        await SignInManager.ExternalSignInAsync(info, isPersistent: false);
                         return RedirectToLocal(returnUrl);
                     }
                 }
@@ -421,7 +421,10 @@ namespace PLNSecurity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            AuthenticationManager.SignOut();
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalBearer);
             return RedirectToAction("Index", "Home");
         }
 

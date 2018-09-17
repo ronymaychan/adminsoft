@@ -19,7 +19,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44367</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -32,6 +32,7 @@
     <SccAuxPath>Svn</SccAuxPath>
     <SccProvider>SubversionScc</SccProvider>
     <TypeScriptToolsVersion>2.6</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -247,8 +248,8 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.0\lib\net451\Microsoft.Owin.Security.Facebook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Owin.Security.Google, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -270,6 +271,27 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NJsonSchema, Version=9.10.70.0, Culture=neutral, PublicKeyToken=c2f9c3bdfae56102, processorArchitecture=MSIL">
+      <HintPath>..\packages\NJsonSchema.9.10.70\lib\net45\NJsonSchema.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.Annotations, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Annotations.11.18.7\lib\net45\NSwag.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.AspNetCore, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.AspNetCore.11.18.7\lib\net451\NSwag.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.Core, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.Core.11.18.7\lib\net45\NSwag.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.SwaggerGeneration, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.11.18.7\lib\net45\NSwag.SwaggerGeneration.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.SwaggerGeneration.AspNetCore, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.AspNetCore.11.18.7\lib\net451\NSwag.SwaggerGeneration.AspNetCore.dll</HintPath>
+    </Reference>
+    <Reference Include="NSwag.SwaggerGeneration.WebApi, Version=11.18.7.0, Culture=neutral, PublicKeyToken=c2d88086e098d109, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSwag.SwaggerGeneration.WebApi.11.18.7\lib\net45\NSwag.SwaggerGeneration.WebApi.dll</HintPath>
     </Reference>
     <Reference Include="PLNFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PLNFramework.1.0.2\lib\PLNFramework.dll</HintPath>
@@ -303,25 +325,8 @@
       <HintPath>..\packages\SimpleInjector.Integration.WebApi.4.0.12\lib\net45\SimpleInjector.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Swashbuckle.AspNetCore, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Swashbuckle.AspNetCore.2.1.0\lib\net451\Swashbuckle.AspNetCore.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Swashbuckle.AspNetCore.Swagger, Version=2.1.0.0, Culture=neutral, PublicKeyToken=62657d7474907593, processorArchitecture=MSIL">
-      <HintPath>..\packages\Swashbuckle.AspNetCore.Swagger.2.1.0\lib\net451\Swashbuckle.AspNetCore.Swagger.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Swashbuckle.AspNetCore.SwaggerGen, Version=2.1.0.0, Culture=neutral, PublicKeyToken=d84d99fb0135530a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Swashbuckle.AspNetCore.SwaggerGen.2.1.0\lib\net451\Swashbuckle.AspNetCore.SwaggerGen.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Swashbuckle.AspNetCore.SwaggerUI, Version=2.1.0.0, Culture=neutral, PublicKeyToken=4232c99127b3c254, processorArchitecture=MSIL">
-      <HintPath>..\packages\Swashbuckle.AspNetCore.SwaggerUI.2.1.0\lib\net451\Swashbuckle.AspNetCore.SwaggerUI.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Swashbuckle.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cd1bb07a5ac7c7bc, processorArchitecture=MSIL">
       <HintPath>..\packages\Swashbuckle.Core.5.6.0\lib\net40\Swashbuckle.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -345,14 +350,16 @@
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.6\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Text.Encodings.Web, Version=4.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.4.0.1\lib\netstandard1.0\System.Text.Encodings.Web.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.2.6\lib\net45\System.Web.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -365,9 +372,11 @@
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="System.Web.Http, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.6\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.Cors, Version=5.2.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Cors.5.2.6\lib\net45\System.Web.Http.Cors.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
@@ -443,6 +452,8 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Api\CategoryController.cs" />
+    <Compile Include="Controllers\Api\CountryController.cs" />
     <Compile Include="Controllers\Api\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -458,7 +469,10 @@
     <Compile Include="Helpers\MapperHelper.cs" />
     <Compile Include="Helpers\TimestampHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Dto\CategoryDto.cs" />
+    <Compile Include="Models\Dto\CountryDto.cs" />
     <Compile Include="Models\Dto\Employeedto.cs" />
+    <Compile Include="Models\Dto\ListResultDto.cs" />
     <Compile Include="Models\EmployeeViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -785,16 +799,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1083</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1083/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
